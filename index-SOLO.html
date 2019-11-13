@@ -36,13 +36,32 @@
     // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
 
     const targets = document.querySelectorAll('a')
+    const highlight = document.createElement('span')
+    highlight.classList.add('highlight')
+    document.body.appendChild(highlight)
 
-    function highlightTarget () {
-      console.log("highlight func")
+    function highlightTarget() {
+      const coords = this.getBoundingClientRect()
+      console.log(coords)
+
+      let coordsObj = {
+        width: coords.width,
+        height: coords.height,
+        top: coords.y + window.pageYOffset,
+        bottom: coords.x + window.pageXOffset
+      }
+
+      highlight.style.width = `${coords.width}px`;
+      highlight.style.height = `${coords.height}px`;
+      highlight.style.transform = `translate(${coordsObj.bottom}px, ${coordsObj.top}px)`;
+
+
+
     }
-    targets.forEach(x => x.addEventListener('mouseenter',highlightTarget))
 
-    
+    targets.forEach(x => x.addEventListener('mouseenter', highlightTarget))
+
+
   </script>
 </body>
 
